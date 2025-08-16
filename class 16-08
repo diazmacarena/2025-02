@@ -1,0 +1,58 @@
+int a; 
+a = 5;
+int *p;
+p = &a;
+int &b = a; 
+
+cout << a; // 5
+cout << p; // 100
+cout << b; // 5
+
+cout << &a; // 100
+cout << &p; // 104
+cout << &b; // 100
+
+cout << *p; // 5
+cout << *a; error
+cout << *b; error
+
+-----------------------------
+             *        &
+declaración  puntero  alias
+operación    deref    ref
+-----------------------------
+
+int a = 5; 
+int *p = &a;
+int **q = &p;
+int ***r = &q;
+
+cout << p; int*
+cout << r; int***
+cout << **r; int*
+
+cout << &q; 
+cout << &r;
+
+cout << *&*&r; derecha a izquierda
+
+puntero 4bytes
+int 4bytes
+char 1byte
+
+int a;
+int *p = &a;
+char b;
+char *q = &b;
+
+int a = 321;
+int *p = &a;
+char *q = (char*)p;
+cout << *q; // "A"
+*q = "B";
+cout << a;
+
+p offset - 4 bytes
+q offset - 1 byte
+
+
