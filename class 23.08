@@ -1,1 +1,37 @@
+3 23 20 25 24 11 21 12 26 30 25 3
+void cocktail_sort (int* p, int* q)
+{
+    bool swapped = true;
+    int start = 0;
+    int* fin = q + (q-p);
 
+while (swapped) {
+        swapped = false;
+
+        for (; p < fin; p++) {
+            if (*p > *(p+1)) {
+                swap(*p, *(p+1));
+                swapped = true;
+            }
+        }
+
+        if (!swapped)
+            break;
+
+        swapped = false;
+
+        --q;
+
+        for (int* i = fin - 1; i >= p; --i) {
+            if (a[i] > a[i + 1]) {
+                swap(*p, *(p+1));
+                swapped = true;
+            }
+        }
+
+
+        ++p;
+    }
+}
+
+}
