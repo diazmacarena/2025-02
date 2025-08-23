@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+void merge(int*, int*);
+
+int main() {
+    int arr[] = {2,2,4,46,32,20,12,30,24,1,3,25,11,7,13,91,35,33};
+    int* p = arr;
+    int* q = &arr[9]; 
+    merge(p, q);
+    for (int i = 0; i < 18; i++) {
+        cout << arr[i] << " ";
+    }
+    return 0;
+}
+
+void merge(int* p, int* q) {
+    int* fin = q + (q - p);
+    int* inicio = p;  
+    
+    while (p < q && q < fin) {
+        if (*q < *p) {
+            swap(*p, *q);
+        }
+        p++;
+        if (p >= q) {
+            p = inicio;  
+            q++;
+        }
+    }
+}
