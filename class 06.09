@@ -1,0 +1,23 @@
+#include<iostream>
+using namespace std;
+
+template<class> T
+class cola
+{
+  int A[10];
+  int* head = nullptr;
+  int* tail = nullptr;
+
+public:
+  bool push(t, val);
+  bool pop(t, val);
+  bool empty();
+  bool full;
+};
+
+template class T
+bool cola::push(
+  if (full())(return false;)
+  if (tail > A+9)
+        
+                    
