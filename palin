@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+
+// strlen propia usando punteros
+int mi_strlen(const char* s) {
+    const char* p = s;
+    while(*p) p++; // Avanza hasta el caracter nulo
+    return p - s;  // Diferencia de punteros = longitud
+}
+
+// Verifica palíndromo con punteros
+bool esPalindromo(const char* cadena) {
+    int len = mi_strlen(cadena);
+    const char* inicio = cadena;
+    const char* fin = cadena + len - 1;
+    while (inicio < fin) {
+        if (*inicio != *fin)
+            return false;
+        inicio++;
+        fin--;
+    }
+    return true;
+}
+
+int main() {
+    char palabra[100];
+    cout << "Ingrese una palabra: ";
+    cin >> palabra;
+
+    if (esPalindromo(palabra))
+        cout << "Es palíndromo" << endl;
+    else
+        cout << "No es palíndromo" << endl;
+    return 0;
+}
