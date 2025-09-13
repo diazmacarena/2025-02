@@ -1,23 +1,69 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-template<class> T
-class cola
-{
-  int A[10];
-  int* head = nullptr;
-  int* tail = nullptr;
-
+template <class T>
+class Cola {
+    T A[10];
+    int* head;
+    int* tail;
 public:
-  bool push(t, val);
-  bool pop(t, val);
-  bool empty();
-  bool full;
+    Cola() {
+        head = nullptr;
+        tail = nullptr;
+    }
+
+    bool full() const {
+        // La cola está llena cuando ocupa todas las posiciones
+        return (head == A && tail == A + 9) || (head == tail + 1);
+    }
+
+    bool empty() const {
+        // Está vacía cuando los punteros no están inicializados
+        return head == nullptr && tail == nullptr;
+    }
+
+    bool push(const T& val) {
+        if (full()) return false;
+
+        if (empty()) {
+            head = tail = A;
+            *tail = val;
+        } else {
+            if (tail == A + 9) {
+                if (head != A) {
+                    tail = A;
+                } else {
+                    return false;
+                }
+            } else {
+                tail++;
+            }
+            *tail = val;
+        }
+        return true;
+    }
+
+    bool pop(T& val) {
+        if (empty()) return false;
+        val = *head;
+        if (head == tail) { // La cola se vacía
+            head = tail = nullptr;
+        } else if (head == A + 9) {
+            head = A;
+        } else {
+            head++;
+        }
+        return true;
+    }
 };
 
-template class T
-bool cola::push(
-  if (full())(return false;)
-  if (tail > A+9)
-        
+int main() {
+    Cola<int> q;
+    for(int i = 0; i < 10; i++) q.push(i);
+    int val;
+    while(q.pop(val)) cout << val << ' ';
+    cout << endl;
+    return 0;
+}
+
                     
