@@ -13,17 +13,16 @@ public:
     }
 
     bool full() const {
-        // La cola está llena cuando ocupa todas las posiciones
         return (head == A && tail == A + 9) || (head == tail + 1);
     }
 
     bool empty() const {
-        // Está vacía cuando los punteros no están inicializados
         return head == nullptr && tail == nullptr;
     }
 
     bool push(const T& val) {
-        if (full()) return false;
+        if (full()) 
+        return false;
 
         if (empty()) {
             head = tail = A;
