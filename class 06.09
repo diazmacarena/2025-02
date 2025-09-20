@@ -6,55 +6,59 @@ class Cola {
     T A[10];
     int* head;
     int* tail;
+    bool full();
+    bool empty();
+    bool push(const T& val);
+    bool pop(T& val);
 public:
-    Cola() {
-        head = nullptr;
-        tail = nullptr;
-    }
-
-    bool full() const {
-        return (head == A && tail == A + 9) || (head == tail + 1);
-    }
-
-    bool empty() const {
-        return head == nullptr && tail == nullptr;
-    }
-
-    bool push(const T& val) {
-        if (full()) 
-        return false;
-
-        if (empty()) {
-            head = tail = A;
-            *tail = val;
-        } else {
-            if (tail == A + 9) {
-                if (head != A) {
-                    tail = A;
-                } else {
-                    return false;
-                }
-            } else {
-                tail++;
-            }
-            *tail = val;
-        }
-        return true;
-    }
-
-    bool pop(T& val) {
-        if (empty()) return false;
-        val = *head;
-        if (head == tail) { // La cola se vacía
-            head = tail = nullptr;
-        } else if (head == A + 9) {
-            head = A;
-        } else {
-            head++;
-        }
-        return true;
-    }
+    head = nullptr;
+    tail = nullptr;
 };
+
+template <class T>
+bool Cola::full() {
+    return (head == A && tail == A + 9) || (head == tail + 1);
+}
+
+bool Cola::empty() const {
+    return head == nullptr && tail == nullptr;
+}
+
+bool Cola::push(const T& val) {
+    if (full()) 
+    return false;
+
+    if (empty()) {
+        head = tail = A;
+        *tail = val;
+    } else {
+        if (tail == A + 9) {
+            if (head != A) {
+                tail = A;
+            } else {
+                return false;
+            }
+        } else {
+            tail++;
+        }
+        *tail = val;
+    }
+    return true;
+}
+
+bool Cola::pop(T& val) {
+    if (empty()) return false;
+    val = *head;
+    if (head == tail) { // La cola se vacía
+        head = tail = nullptr;
+    } else if (head == A + 9) {
+        head = A;
+    } else {
+        head++;
+    }
+    return true;
+}
+
 
 int main() {
     Cola<int> q;
