@@ -54,7 +54,7 @@ template <class T>
 bool Cola<T>::pop(T& val) {
     if (empty()) return false;
     val = *head;
-    if (head == tail) { // La cola se vacía
+    if (head == tail) {
         head = tail = nullptr;
     } else if (head == A + 9) {
         head = A;
