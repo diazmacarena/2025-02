@@ -11,43 +11,22 @@ void multiplicarMatrices(int* A, int* B, int* C, int r1, int c1, int c2) {
 }
 
 int main() {
-    int r1, c1, r2, c2;
-    cout << "Filas y columnas de la primera matriz: ";
-    cin >> r1 >> c1;
-    cout << "Filas y columnas de la segunda matriz: ";
-    cin >> r2 >> c2;
+    int f1 = 2, c1 = 3;
+    int f2 = 3, c2 = 2;
+    
+    int A[f1 * c1] = {1, 2, 3, 4, 5, 6}; // 2x3 matriz
+    int B[f2 * c2] = {7, 8, 9, 10, 11, 12}; // 3x2 matriz
+    int* C = new int[f1 * c2];
 
-    if (c1 != r2) {
-        cout << "No se pueden multiplicar las matrices." << endl;
-        return 1;
-    }
-
-    int* A = new int[r1 * c1];
-    int* B = new int[r2 * c2];
-    int* C = new int[r1 * c2];
-
-    cout << "Elementos de la primera matriz:\n";
-    for (int i = 0; i < r1; ++i)
-        for (int j = 0; j < c1; ++j)
-            cin >> *(A + i * c1 + j);
-
-    cout << "Elementos de la segunda matriz:\n";
-    for (int i = 0; i < r2; ++i)
-        for (int j = 0; j < c2; ++j)
-            cin >> *(B + i * c2 + j);
-
-    multiplicarMatrices(A, B, C, r1, c1, c2);
+    multiplicarMatrices(A, B, C, f1, c1, c2);
 
     cout << "Matriz resultado:\n";
-    for (int i = 0; i < r1; ++i) {
+    for (int i = 0; i < f1; ++i) {
         for (int j = 0; j < c2; ++j)
             cout << *(C + i * c2 + j) << " ";
         cout << endl;
     }
-
-    delete[] A;
-    delete[] B;
     delete[] C;
-
     return 0;
 }
+
