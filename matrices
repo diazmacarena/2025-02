@@ -1,40 +1,35 @@
 #include <iostream>
 using namespace std;
 
-// acceso a matrices dentro del arreglo 3D
-// matriz = 0 -> A, matriz = 1 -> B, matriz = 2 -> C
+
 int* getMatrix(int *matrices, int matriz, int filas, int cols) {
     return matrices + matriz * filas * cols;
 }
 
-// multiplicar A * B = C
-void multiplicarMatrices(int *matrices, int r1, int c1, int c2) {
-    int *A = getMatrix(matrices, 0, r1, c1);  // matriz A
-    int *B = getMatrix(matrices, 1, c1, c2);  // matriz B
-    int *C = getMatrix(matrices, 2, r1, c2);  // matriz C
+void multiplicarMatrices(int *matrices[3][3]) {
+    int *A = (int*)matrices[0];
+    int *B = (int*)matrices[1]; 
+    int *C = (int*)matrices[2];
 
     int *pC_row, *pA_row, *pB_col;
 
-    // inicializo C en 0
-    for (pC_row = C; pC_row < C + r1 * c2; ++pC_row) *pC_row = 0;
-
     // recorro filas de A
-    for (int i = 0; i < r1; ++i) {
-        pA_row = A + i * c1;   // fila de A
-        pC_row = C + i * c2;   // fila de C
+    for (int i = 0; i < 3; ++i) {
+        pA_row = A + i * c1;   
+        pC_row = C + i * c2;   
 
         // recorro columnas de B
         for (int j = 0; j < c2; ++j) {
             int sum = 0;
-            pB_col = B + j;    // inicio de la col de B
+            pB_col = B + j;    
             int *pa = pA_row;
             int *pb = pB_col;
 
-            // multiplico fila * columna
+            
             for (int k = 0; k < c1; ++k) {
                 sum += (*pa) * (*pb);
-                ++pa;       // avanzo en fila A
-                pb += c2;   // avanzo en columna B
+                ++pa;       
+                pb += c2;   
             }
 
             // guardo en C
@@ -45,29 +40,25 @@ void multiplicarMatrices(int *matrices, int r1, int c1, int c2) {
 
 int main() {
     int r1 = 2, c1 = 3, c2 = 2;
-
-    // necesito espacio para 3 matrices: A (2x3), B (3x2), C (2x2)
-    // pero como no son del mismo tamaño exacto, reservo lo máximo
+    
     int total = r1*c1 + c1*c2 + r1*c2;
     int *matrices = new int[total];
+
 
     // punteros a cada matriz
     int *A = getMatrix(matrices, 0, r1, c1);
     int *B = getMatrix(matrices, 1, c1, c2);
     int *C = getMatrix(matrices, 2, r1, c2);
 
-    // lleno A
-    int datosA[] = {1,2,3,4,5,6};
-    for (int i = 0; i < r1*c1; i++) *(A+i) = datosA[i];
+    int getA[] = {1,2,3,4,5,6};
+    for (int i = 0; i < r1*c1; i++) *(A+i) = getA[i];
 
-    // lleno B
-    int datosB[] = {7,8,9,10,11,12};
-    for (int i = 0; i < c1*c2; i++) *(B+i) = datosB[i];
+    int getB[] = {7,8,9,10,11,12};
+    for (int i = 0; i < c1*c2; i++) *(B+i) = getB[i];
 
     // hago la multiplicación
     multiplicarMatrices(matrices, r1, c1, c2);
 
-    // imprimo C
     for (int i = 0; i < r1; i++) {
         for (int j = 0; j < c2; j++) {
             cout << *(C + i*c2 + j) << " ";
