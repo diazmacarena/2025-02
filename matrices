@@ -1,32 +1,53 @@
 #include <iostream>
 using namespace std;
 
-void multiplicarMatrices(int* A, int* B, int* C, int r1, int c1, int c2) {
-    for (int i = 0; i < r1; ++i)
+void multiplicarMatrices(int *A, int *B, int *C, int r1, int c1, int c2) {
+    int *pC_row, *pA_row, *pB_col;
+
+    for (pC_row = C; pC_row < C + r1 * c2; ++pC_row) 
+        *pC_row = 0;
+
+    // recorro filas de A
+    for (int i = 0; i < r1; ++i) {
+        pA_row = A + i * c1;   // fila de A
+        pC_row = C + i * c2;   // fila de C
+
+        // recorro columnas de B
         for (int j = 0; j < c2; ++j) {
-            *(C + i * c2 + j) = 0;
-            for (int k = 0; k < c1; ++k)
-                *(C + i * c2 + j) += *(A + i * c1 + k) * *(B + k * c2 + j);
+            int sum = 0;
+            pB_col = B + j;    // inicio de la col de B
+            int *pa = pA_row;  
+            int *pb = pB_col;
+
+            // multiplico fila * columna
+            for (int k = 0; k < c1; ++k) {
+                sum += (*pa) * (*pb);
+                ++pa;       // avanzo en fila A
+                pb += c2;   // avanzo en columna B
+            }
+
+            // guardo en C
+            *(pC_row + j) = sum;
         }
+    }
 }
 
 int main() {
-    int f1 = 2, c1 = 3;
-    int f2 = 3, c2 = 2;
-    
-    int A[f1 * c1] = {1, 2, 3, 4, 5, 6}; // 2x3 matriz
-    int B[f2 * c2] = {7, 8, 9, 10, 11, 12}; // 3x2 matriz
-    int* C = new int[f1 * c2];
+    int r1 = 2, c1 = 3, c2 = 2;
+    int A[] = {1,2,3, 4,5,6};      // 2x3
+    int B[] = {7,8, 9,10, 11,12};  // 3x2
 
-    multiplicarMatrices(A, B, C, f1, c1, c2);
+    int *C = new int[r1 * c2];
 
-    cout << "Matriz resultado:\n";
-    for (int i = 0; i < f1; ++i) {
-        for (int j = 0; j < c2; ++j)
+    multiplicarMatrices(A, B, C, r1, c1, c2);
+
+    for (int i = 0; i < r1; ++i) {
+        for (int j = 0; j < c2; ++j) {
             cout << *(C + i * c2 + j) << " ";
+        }
         cout << endl;
     }
+
     delete[] C;
     return 0;
 }
-
