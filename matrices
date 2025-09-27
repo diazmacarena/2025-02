@@ -2,21 +2,21 @@
 using namespace std;
 
 void multiplicarMatrices(int *A, int *B, int *C, int r1, int c1, int c2) {
-    int *pC_row, *pA_row, *pB_col;
+    int *pC_fil, *pA_fil, *pB_col;
 
-    for (pC_row = C; pC_row < C + r1 * c2; ++pC_row) 
-        *pC_row = 0;
+    for (pC_fil = C; pC_fil < C + r1 * c2; ++pC_fil) 
+        *pC_fil = 0;
 
     // recorro filas de A
     for (int i = 0; i < r1; ++i) {
-        pA_row = A + i * c1;   // fila de A
-        pC_row = C + i * c2;   // fila de C
+        pA_fil = A + i * c1;   // fila de A
+        pC_fil = C + i * c2;   // fila de C
 
         // recorro columnas de B
         for (int j = 0; j < c2; ++j) {
             int sum = 0;
             pB_col = B + j;    // inicio de la col de B
-            int *pa = pA_row;  
+            int *pa = pA_fil;  
             int *pb = pB_col;
 
             // multiplico fila * columna
@@ -27,7 +27,7 @@ void multiplicarMatrices(int *A, int *B, int *C, int r1, int c1, int c2) {
             }
 
             // guardo en C
-            *(pC_row + j) = sum;
+            *(pC_fil + j) = sum;
         }
     }
 }
