@@ -37,7 +37,7 @@ int main() {
     int A[] = {1,2,3, 4,5,6};      
     int B[] = {7,8, 9,10, 11,12};  
 
-    int *C = new int[r1 * c2];
+    int *C = new int[f1 * c2];
 
     multiplicarMatrices(A, B, C, f1, c1, c2);
 
