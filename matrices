@@ -2,9 +2,9 @@
 using namespace std;
 
 void multiplicarMatrices(int (*matrices)[3][3]) {
-    int *A = (int*)matrices[0]; 
-    int *B = (int*)matrices[1]; 
-    int *C = (int*)matrices[2]; 
+    int *A = **matrices;
+    int *B = **(matrices+1);
+    int *C = **(matrices+2);
     int *pC_row, *pA_row, *pB_col;
     
     for (pA_row = A, pC_row = C; pA_row < A + 9; pA_row += 3, pC_row += 3) {
@@ -23,17 +23,15 @@ void multiplicarMatrices(int (*matrices)[3][3]) {
 int main() {
     int matrices[3][3][3];
     
-    // Inicialización de matriz A usando solo punteros
     int datosA[9] = {1,2,3, 4,5,6, 7,8,9};
-    int *pA = (int*)matrices;  // Apunta al inicio de matrices[0]
+    int *pA = (int*)matrices; 
     int *pdatosA = datosA;
     for (; pdatosA < datosA + 9; ++pA, ++pdatosA) {
         *pA = *pdatosA;
     }
     
-    // Inicialización de matriz B usando solo punteros
     int datosB[9] = {9,8,7, 6,5,4, 3,2,1};
-    int *pB = (int*)matrices + 9;  // Apunta al inicio de matrices[1]
+    int *pB = (int*)matrices + 9;  
     int *pdatosB = datosB;
     for (; pdatosB < datosB + 9; ++pB, ++pdatosB) {
         *pB = *pdatosB;
@@ -41,8 +39,8 @@ int main() {
     
     multiplicarMatrices(matrices);
     
-    // Impresión usando solo punteros
-    int *C = (int*)matrices + 18;  // Apunta al inicio de matrices[2]
+
+    int *C = (int*)matrices + 18; 
     int contador = 0;
     for (int *pc = C; pc < C + 9; ++pc) {
         cout << *pc << " ";
