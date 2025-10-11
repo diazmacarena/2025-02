@@ -1,0 +1,33 @@
+#include<iostream>
+using namespace std;
+
+bool elige(int a)
+{
+    return a % 2 == 0;
+}
+
+void split(int* ini, int* fin, bool (*co)(int))
+{
+    int* r = new int[10];
+    int* par = r;
+    int* impar = r+5;
+    for(int* i = ini; i < fin+1; ++i)
+    {
+        if(co(*i))
+        {
+            *par = *i;
+            ++par;
+        }
+        else{
+            *impar = *i;
+            ++impar;
+        }    }
+    for (int* p = r; p < r+10; p++)
+    { cout << *p << " ";}
+}
+
+int main()
+{
+    int a[] = {1,2,3,7,10,11,30,32,25,40};
+    split(a, a+9, elige);
+}
