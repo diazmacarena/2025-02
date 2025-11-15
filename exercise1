@@ -4,10 +4,10 @@ using namespace std;
 void split(int* A, int* fin, function<bool(int)> lambda){
     int* ini = A;
    
-    for(int* lectura = ini; lectura <= fin; ++lectura) {
-    if(lambda(*lectura)) {
-        int temp = *lectura;
-        for(int* k = lectura; k > ini; --k) {
+    for(int* i = ini; i <= fin; ++i) {
+    if(lambda(*i)) {
+        int temp = *i;
+        for(int* k = i; k > ini; --k) {
             *k = *(k-1);
             }
         *ini = temp;
