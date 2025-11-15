@@ -1,0 +1,102 @@
+#include <iostream>
+#include<string>
+using namespace std;
+
+template<class T>
+struct asc
+{ bool operator()(T a, T b)
+    { return a<b;}
+};
+
+template<class T>
+struct des
+{ bool operator()(T a, T b)
+    { return a>b;}
+};
+
+template <class T, class O, int N = 10>
+class lista
+{ T Lista[N];
+int elem = 0;
+public:
+bool add(T val);
+bool del(T val);
+void print();
+};
+
+template <class T, class O, int N>
+bool lista<T, O, N>::add(T val)
+{ O comp;
+if(!elem)
+{
+*Lista = val;
+elem++;
+return true;
+}
+
+if(elem == N)
+return false;
+
+int i = 0;
+for(; i<elem && comp(Lista[i], val); i++);
+for(int j = elem; j > i; j--)
+        Lista[j] = Lista[j-1]; 
+Lista[i] = val;
+    elem++;
+    return true;
+}
+
+template <class T, class O, int N>
+bool lista<T, O, N>::del(T val)
+{
+    int pos = -1;
+    
+    for(int i = 0; i < elem; i++)
+    {
+        if(Lista[i] == val)
+        {
+            pos = i;
+            break;
+        }
+    }
+    
+    if(pos == -1)
+        return false;
+    
+    for(int i = pos; i < elem - 1; i++)
+        Lista[i] = Lista[i + 1];
+    
+    elem--;
+    return true;
+}
+
+template <class T, class O, int N>
+void lista<T, O, N>::print()
+{
+cout << "Lista = <";
+    for(int i = 0; i < elem; i++)
+    {
+        cout << Lista[i];
+        if(i != elem-1)  
+            cout << ",";
+    }
+    cout << ">" << endl;
+}
+
+int main()
+{
+    lista<int,des<int>,3> li;
+    li.add(3);
+    li.print();
+    li.add(5);
+    li.print();
+    li.add(7);
+    li.print();
+    li.add(1);
+    li.print();
+    
+    li.del(5);
+    li.print();  
+    li.del(10); 
+    li.print();
+}
