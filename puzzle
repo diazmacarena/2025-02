@@ -1,0 +1,101 @@
+#include <iostream>
+using namespace std;
+
+void matriz(int**, int*, int*);
+void print(int**);
+bool mover(int**, int*, int*, char);
+bool ordenado(int**);
+
+int main() {
+    int** puzzle = new int*[3];
+    for (int i = 0; i < 3; i++) {
+        puzzle[i] = new int[3];
+    }
+
+    int emptyRow, emptyCol;
+    matriz(puzzle, &emptyRow, &emptyCol);
+    
+    while (!ordenado(puzzle)) {
+        print(puzzle);
+        cout << "Mover (wasd): ";
+        
+        char input;
+        cin >> input;
+        
+        if (!mover(puzzle, &emptyRow, &emptyCol, input)) {
+            cout << "Movimiento inválido.\n";
+        }
+    }
+    
+    print(puzzle);
+    cout << "Ganaste!\n";
+    
+    for (int i = 0; i < 3; i++) {
+        delete[] puzzle[i];
+    }
+    delete[] puzzle;
+    
+    return 0;
+}
+
+
+void matriz(int** puzzle, int* emptyRow, int* emptyCol) {
+    int matrizFija[3][3] = {{5, 2, 7}, {4, 1, 3}, {8, 6, 0}};
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            puzzle[i][j] = matrizFija[i][j];
+            if (puzzle[i][j] == 0) {
+                *emptyRow = i;
+                *emptyCol = j;
+            }
+        }
+    }
+}
+
+void print(int** puzzle) {
+    cout << "\n";
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (puzzle[i][j] == 0) cout << "    ";
+            else cout << (puzzle[i][j] < 10 ? " " : "") << puzzle[i][j] << "  ";
+        }
+        cout << "\n\n";
+    }
+}
+
+
+bool mover(int** puzzle, int* emptyRow, int* emptyCol, char input) {
+    int newRow = *emptyRow;
+    int newCol = *emptyCol;
+    
+    switch (input) {
+        case 'w': newRow--; break;  
+        case 's': newRow++; break;  
+        case 'a': newCol--; break; 
+        case 'd': newCol++; break;  
+        default: return false;
+    }
+    
+    if (newRow < 0 || newRow >= 3 || newCol < 0 || newCol >= 3)
+        return false;
+    
+    swap(puzzle[*emptyRow][*emptyCol], puzzle[newRow][newCol]);
+    *emptyRow = newRow;
+    *emptyCol = newCol;
+    return true;
+}
+
+bool ordenado(int** puzzle) {
+    int expected = 1;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (i == 3-1 && j == 3-1) {
+                if (puzzle[i][j] != 0) return false;
+            } else if (puzzle[i][j] != expected++) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
